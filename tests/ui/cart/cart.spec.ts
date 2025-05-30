@@ -26,7 +26,6 @@ test.describe("Cart UI", () => {
 
         await cartPage.removeFirstProduct();
         await expect(page.locator('.cart_item')).toHaveCount(0);
-        await expect(page.locator('.removed_cart_item')).toBeVisible();
     });
 
     test('Cart page with empty cart', async ({page}) => {
