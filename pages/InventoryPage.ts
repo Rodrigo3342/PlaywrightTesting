@@ -15,7 +15,10 @@ export class InventoryPage {
 
     async orderProducts(filterName: string){
         await this.page.locator('.product_sort_container').click();
-        //await this.page.locator('.product_sort_container').selectOption('hilo');
         await this.page.locator('.product_sort_container').selectOption({label: filterName})
+    }
+
+    async goToItem(productName: string){
+        await this.page.locator('.inventory_item').filter({hasText:productName}).locator('img').click();
     }
 }
