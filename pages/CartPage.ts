@@ -7,4 +7,8 @@ export class CartPage {
         await this.page.locator('.shopping_cart_link').click();
         await this.page.locator('.cart_list').waitFor();
     }
+
+    async removeFirstProduct(){
+        await this.page.locator('#remove-sauce-labs-backpack').first().click();
+    }
 }

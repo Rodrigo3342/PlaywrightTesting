@@ -5,7 +5,7 @@ import { CartPage } from "../../../pages/CartPage";
 import { CREDENTIALS, FILTERS } from "../../../utils/constants";
 
 test.describe('Products',() => {
-    
+
     let loginPage : LoginPage;
     let inventoryPage : InventoryPage;
     let cartPage : CartPage;
@@ -36,9 +36,26 @@ test.describe('Products',() => {
         await inventoryPage.orderProducts(FILTERS.HightoLow.order);
         
         const prices = await page.locator('.inventory_item_price').allTextContents();
-        const priceNumbers = prices.map(p => parseFloat(p.replace('$', '')));
+        const priceNumbers = prices.map(p => parseFloat(p.replace('$ ', '')));
         const sorted = [...priceNumbers].sort((a, b) => b - a); // orden descendente
 
         expect(priceNumbers).toEqual(sorted);
+    })
+
+    test('Add button change to Remove', async ({page})=>{
+        await inventoryPage.addFirstProduct();
+        expect(page.locator('.shopping_cart_badge')).toBeVisible();
+        expect(page.locator('[data-test="inventory-item"]').first().locator('button')).toHaveText('Remove');
+    })
+
+    test('Verify the number of products addeed to the cart is updated', async ({page})=>{
+        const PRODUCTS = {
+            firstProduct: 'Sauce Labs Backpack',
+            secondProduct: 'Sauce Labs Bike Light'
+        };
+        await inventoryPage.addEspecificProduct(PRODUCTS.firstProduct);
+        await inventoryPage.addEspecificProduct(PRODUCTS.secondProduct);
+        expect(page.locator('.shopping_cart_badge')).toBeVisible();
+        expect(page.locator('.shopping_cart_badge')).toHaveText('2');
     })
 })

@@ -15,7 +15,6 @@ export class InventoryPage {
 
     async orderProducts(filterName: string){
         await this.page.locator('.product_sort_container').click();
-        //await this.page.locator('.product_sort_container').selectOption('hilo');
         await this.page.locator('.product_sort_container').selectOption({label: filterName})
     }
 }
