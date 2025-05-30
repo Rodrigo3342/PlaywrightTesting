@@ -11,4 +11,9 @@ export class CartPage {
     async removeFirstProduct(){
         await this.page.locator('#remove-sauce-labs-backpack').first().click();
     }
+
+    async goToCheckout(){
+        //await this.page.locator('#shopping_cart_badge').waitFor();
+        await this.page.locator('[data-test="checkout"]').click();
+    }
 }
